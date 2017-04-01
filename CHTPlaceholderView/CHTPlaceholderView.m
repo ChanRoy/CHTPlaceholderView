@@ -38,32 +38,37 @@ static NSString *const kDictKey = @"CHT";
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor whiteColor];
-        _infoDict = [NSMutableDictionary new];
-        
-        _phImageView = [[UIImageView alloc]init];
-        [self addSubview:_phImageView];
-        _isShowPhImageView = YES;
-        
-        _phTitleLabel = [[UILabel alloc]init];
-        _phTitleLabel.font = [UIFont systemFontOfSize:15.0f];
-        _phTitleLabel.backgroundColor = [UIColor clearColor];
-        _phTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _phTitleLabel.numberOfLines = 0;
-        _phTitleLabel.textColor = UIColorFromRGB(0x9b9b9b);
-        [self addSubview:_phTitleLabel];
-        
-        _phSubTitleLabel = [[UILabel alloc]init];
-        _phSubTitleLabel.font = [UIFont systemFontOfSize:12.0f];
-        _phSubTitleLabel.backgroundColor = [UIColor clearColor];
-        _phSubTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _phSubTitleLabel.numberOfLines = 0;
-        _phSubTitleLabel.textColor = UIColorFromRGB(0x9b9b9b);
-        [self addSubview:_phSubTitleLabel];
-        
+        [self initialize];
         
     }
     return self;
+}
+
+- (void)initialize{
+    
+    self.backgroundColor = [UIColor whiteColor];
+    _infoDict = [NSMutableDictionary new];
+    
+    _phImageView = [[UIImageView alloc]init];
+    [self addSubview:_phImageView];
+    _isShowPhImageView = YES;
+    
+    _phTitleLabel = [[UILabel alloc]init];
+    _phTitleLabel.font = [UIFont systemFontOfSize:15.0f];
+    _phTitleLabel.backgroundColor = [UIColor clearColor];
+    _phTitleLabel.textAlignment = NSTextAlignmentCenter;
+    _phTitleLabel.numberOfLines = 0;
+    _phTitleLabel.textColor = UIColorFromRGB(0x9b9b9b);
+    [self addSubview:_phTitleLabel];
+    
+    _phSubTitleLabel = [[UILabel alloc]init];
+    _phSubTitleLabel.font = [UIFont systemFontOfSize:12.0f];
+    _phSubTitleLabel.backgroundColor = [UIColor clearColor];
+    _phSubTitleLabel.textAlignment = NSTextAlignmentCenter;
+    _phSubTitleLabel.numberOfLines = 0;
+    _phSubTitleLabel.textColor = UIColorFromRGB(0x9b9b9b);
+    [self addSubview:_phSubTitleLabel];
+
 }
 
 - (void)setPhTitle:(NSString *)phTitle phSubTitle:(NSString *)phSubTitle phImage:(UIImage *)phImage placeholderViewType:(CHTPlaceholderViewType)type{
@@ -94,9 +99,10 @@ static NSString *const kDictKey = @"CHT";
     
     [super layoutSubviews];
     
-    CGFloat centerX = CGRectGetWidth(self.frame) + _offsetX;
-    CGFloat centerY = CGRectGetHeight(self.frame) + _offsetY;
+    CGFloat centerX = CGRectGetWidth(self.bounds)/2 + _offsetX;
+    CGFloat centerY = CGRectGetHeight(self.bounds)/2 + _offsetY;
     CGPoint labelCenter = CGPointMake(centerX, centerY);
+    
     CGFloat padding = 30.0f;
     CGFloat subMargin = 6;
     
@@ -138,7 +144,5 @@ static NSString *const kDictKey = @"CHT";
     _phSubTitleLabel.center = CGPointMake(CGRectGetWidth(self.frame)/2.0+_offsetX, CGRectGetMaxY(_phTitleLabel.frame)+subLabelSize.height/2.0+subMargin);
     
 }
-
-
 
 @end

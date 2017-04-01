@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  CHTPlaceholderView
+//  CHTPlaceholderViewDemo
 //
-//  Created by cht on 17/3/30.
-//  Copyright © 2017年 Roy Chan. All rights reserved.
+//  Created by cht on 2017/4/1.
+//  Copyright © 2017年 cht. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
