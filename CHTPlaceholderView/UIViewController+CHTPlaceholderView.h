@@ -13,10 +13,13 @@
 
 @property (nonatomic, strong) CHTPlaceholderView *phView;
 
-- (void)showPlaceholderViewInView:(UIView *)view placeholderViewType:(CHTPlaceholderViewType)type;
+- (void)showPlaceholderViewInView:(UIView *)view
+              placeholderViewType:(CHTPlaceholderViewType)type;
 
 - (void)hidePlaceholderView;
 
-- (void)addTouchEventInPhViewWithTarget:(id)target action:(SEL)selector;
+// add some touch events
+- (void)addTouchEventInPhViewWithTarget:(id)target
+                                 action:(SEL)selector;
 
 @end
