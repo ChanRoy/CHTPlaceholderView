@@ -1,12 +1,12 @@
 //
-//  UIViewController+CHTPlaceholderVIew.m
+//  UIViewController+CHTPlaceholderView.m
 //  CHTPlaceholderView
 //
-//  Created by cht on 17/3/30.
+//  Created by cht on 2017/4/1.
 //  Copyright © 2017年 Roy Chan. All rights reserved.
 //
 
-#import "UIViewController+CHTPlaceholderVIew.h"
+#import "UIViewController+CHTPlaceholderView.h"
 #import <objc/runtime.h>
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -14,13 +14,7 @@
 
 static NSString *const kPhViewKey = @"kPhViewKey";
 
-@interface CHTPlaceholderView ()
-
-@property (nonatomic, strong) CHTPlaceholderView *phView;
-
-@end
-
-@implementation UIViewController (CHTPlaceholderVIew)
+@implementation UIViewController (CHTPlaceholderView)
 
 - (void)setPhView:(CHTPlaceholderView *)phView{
     
@@ -36,14 +30,14 @@ static NSString *const kPhViewKey = @"kPhViewKey";
     
     self.phView = [[CHTPlaceholderView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame))];
     self.phView.offsetY = 50;
-    [self.phView setPhTitle:@"加载出错" phSubTitle:@"點擊重新加載" phImage:[UIImage imageNamed:@"no-wifi"] placeholderViewType:CHTPlaceholderViewTypeNoConnect];
-    [self.phView setPhTitle:@"暫無數據" phSubTitle:nil phImage:[UIImage imageNamed:@"no-wifi"] placeholderViewType:CHTPlaceholderViewTypeNoData];
-    [self.phView setPhTitle:@"加載出錯" phSubTitle:@"點擊重新加載" phImage:[UIImage imageNamed:@"load_fail"] placeholderViewType:CHTPlaceholderViewTypeError];
+    [self.phView setPhTitle:@"无网络连接" phSubTitle:@"点击重新加载" phImage:[UIImage imageNamed:@"no-wifi"] placeholderViewType:CHTPlaceholderViewTypeNoConnect];
+    [self.phView setPhTitle:@"暂无数据" phSubTitle:nil phImage:[UIImage imageNamed:@"load_fail"] placeholderViewType:CHTPlaceholderViewTypeNoData];
+    [self.phView setPhTitle:@"加载出错" phSubTitle:@"点击重新加载" phImage:[UIImage imageNamed:@"load_fail"] placeholderViewType:CHTPlaceholderViewTypeError];
 }
 
 - (void)showPlaceholderViewInView:(UIView *)view placeholderViewType:(CHTPlaceholderViewType)type{
     
-    [self hidePlaceHolderView];
+    [self hidePlaceholderView];
     
     [self setupPlaceHolderViewInView:view];
     
@@ -51,7 +45,7 @@ static NSString *const kPhViewKey = @"kPhViewKey";
     
     if (view == self.view) {
         
-        self.phView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.phView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
         [view addSubview:self.phView];
         [view bringSubviewToFront:self.phView];
         
@@ -62,7 +56,7 @@ static NSString *const kPhViewKey = @"kPhViewKey";
     [self.view insertSubview:self.phView aboveSubview:view];
 }
 
-- (void)hidePlaceHolderView{
+- (void)hidePlaceholderView{
     
     if (self.phView) {
         [self.phView removeFromSuperview];
