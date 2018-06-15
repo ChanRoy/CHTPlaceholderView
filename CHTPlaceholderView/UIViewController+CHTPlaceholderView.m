@@ -56,14 +56,14 @@ static NSString *const kPhViewKey = @"kPhViewKey";
     
     if (view == self.view) {
         
-        self.phView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        self.phView.frame = view.bounds;
         [view addSubview:self.phView];
         [view bringSubviewToFront:self.phView];
         
         return;
     }
     
-    self.phView.frame = view.bounds;
+    self.phView.frame = view.frame;
     [self.view insertSubview:self.phView aboveSubview:view];
 }
 
