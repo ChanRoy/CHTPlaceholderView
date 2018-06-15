@@ -52,19 +52,20 @@ static NSString *const kPhViewKey = @"kPhViewKey";
     
     [self setupPlaceHolderViewInView:view];
     
-    [self.phView showPlaceholderViewWithType:type];
-    
     if (view == self.view) {
         
         self.phView.frame = view.bounds;
         [view addSubview:self.phView];
         [view bringSubviewToFront:self.phView];
         
-        return;
+    } else {
+        
+        self.phView.frame = view.bounds;
+        [self.view insertSubview:self.phView aboveSubview:view];
     }
-    
     self.phView.frame = view.frame;
     [self.view insertSubview:self.phView aboveSubview:view];
+    [self.phView showPlaceholderViewWithType:type];
 }
 
 - (void)hidePlaceholderView{

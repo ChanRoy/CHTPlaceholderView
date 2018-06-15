@@ -103,44 +103,52 @@ static NSString *const kDictKey = @"CHT";
     CGFloat centerY = CGRectGetHeight(self.bounds)/2 + _offsetY;
     CGPoint labelCenter = CGPointMake(centerX, centerY);
     
-    CGFloat padding = 30.0f;
+    CGFloat paddingX = 30.0f;
     CGFloat subMargin = 6;
     
-    CGSize labelSize = [_phTitleLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame)-padding*2, 999) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: _phTitleLabel.font} context:nil].size;
+    CGSize labelSize = [_phTitleLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame)-paddingX*2, 999) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: _phTitleLabel.font} context:nil].size;
+    _phTitleLabel.frame = CGRectMake(0, 0, labelSize.width, labelSize.height);
+    
+    CGSize subLabelSize = [_phSubTitleLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame)-paddingX*2, 999) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: _phSubTitleLabel.font} context:nil].size;
+    _phSubTitleLabel.frame = CGRectMake(0, 0, subLabelSize.width, subLabelSize.height);
     
     if (_isShowPhImageView) {
         
         CGFloat imageWidth = _phImageView.image.size.width;
         CGFloat imageHeight = _phImageView.image.size.height;
         _phImageView.bounds = CGRectMake(0, 0, imageWidth, imageHeight);
-        CGPoint imageCenter = CGPointMake(CGRectGetWidth(self.frame)/2.0f+_offsetX, (CGRectGetHeight(self.frame)-imageHeight)/2.0f+_offsetY);
-        _phImageView.center = imageCenter;
-        if (_phImageView.frame.origin.y < 0) {
-            
-            CGRect frame = _phImageView.frame;
-            frame.origin.y = 5;
-            frame.size.height = imageHeight - 5*2;
-            _phImageView.frame = frame;
-        }
         
-        if (_phImageView.frame.origin.x < 0) {
-            
-            CGRect frame = _phImageView.frame;
-            frame.origin.x = 5;
-            frame.size.width = imageWidth - 5*2;
-            _phImageView.frame = frame;
-        }
-        
-        labelCenter = CGPointMake(CGRectGetWidth(self.frame)/2.0+_offsetX, CGRectGetMaxY(_phImageView.frame)+labelSize.height/2+subMargin);
     }else{
         _phImageView.frame = CGRectZero;
     }
     
-    _phTitleLabel.frame = CGRectMake(0, 0, labelSize.width, labelSize.height);
+    CGFloat imgH = CGRectGetHeight(_phImageView.frame);
+    CGFloat imgW = CGRectGetWidth(_phImageView.frame);
+    
+    CGFloat totalH = imgH + CGRectGetHeight(_phTitleLabel.frame) + CGRectGetHeight(_phSubTitleLabel.frame) + subMargin * 2;
+    CGFloat paddingY = (CGRectGetHeight(self.superview.frame) - totalH) / 2.f;
+    
+    CGPoint imageCenter = CGPointMake(CGRectGetWidth(self.frame) / 2.f + _offsetX, paddingY + imgH / 2 + _offsetY);
+    _phImageView.center = imageCenter;
+    if (_phImageView.frame.origin.y < 0) {
+        
+        CGRect frame = _phImageView.frame;
+        frame.origin.y = 5;
+        frame.size.height = imgH - 5*2;
+        _phImageView.frame = frame;
+    }
+    
+    if (_phImageView.frame.origin.x < 0) {
+        
+        CGRect frame = _phImageView.frame;
+        frame.origin.x = 5;
+        frame.size.width = imgW - 5*2;
+        _phImageView.frame = frame;
+    }
+    
+    labelCenter = CGPointMake(CGRectGetWidth(self.frame)/2.0+_offsetX, CGRectGetMaxY(_phImageView.frame)+labelSize.height/2+subMargin);
     _phTitleLabel.center = labelCenter;
     
-    CGSize subLabelSize = [_phSubTitleLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame)-padding*2, 999) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: _phSubTitleLabel.font} context:nil].size;
-    _phSubTitleLabel.frame = CGRectMake(0, 0, subLabelSize.width, subLabelSize.height);
     _phSubTitleLabel.center = CGPointMake(CGRectGetWidth(self.frame)/2.0+_offsetX, CGRectGetMaxY(_phTitleLabel.frame)+subLabelSize.height/2.0+subMargin);
     
 }
