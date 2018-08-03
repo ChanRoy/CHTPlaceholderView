@@ -64,7 +64,7 @@ static NSString *const kPhViewKey = @"kPhViewKey";
         [self.view insertSubview:self.phView aboveSubview:view];
     }
     self.phView.frame = view.frame;
-    [self.view insertSubview:self.phView aboveSubview:view];
+    [view.superview insertSubview:self.phView aboveSubview:view];
     [self.phView showPlaceholderViewWithType:type];
 }
 
